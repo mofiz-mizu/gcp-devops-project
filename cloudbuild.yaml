@@ -1,8 +1,7 @@
 steps:
-  # build the container image
-- name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "us-central1-docker.pkg.dev/astute-maxim-458102-k9/demo-project-gcp/gcpdevops", "."]
-  # push container image
-- name: "gcr.io/cloud-builders/docker"
-  args: ["push", "us-central1-docker.pkg.dev/astute-maxim-458102-k9/demo-project-gcp/gcpdevops"]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/demo-project-gcp/my-image', '.']
+
+- name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/demo-project-gcp/my-image']
 
