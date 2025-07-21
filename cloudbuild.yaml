@@ -1,9 +1,13 @@
 steps:
-- name: "gcr.io/cloud-builders/docker"
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/demo-project-gcp/my-image', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/${PROJECT_ID}/demo-project-gcp/my-image:${SHORT_SHA}', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/demo-project-gcp/my-image:${SHORT_SHA}']
+images:
+- 'us-central1-docker.pkg.dev/${PROJECT_ID}/demo-project-gcp/my-image:${SHORT_SHA}'
 options:
+  # Using REGIONAL_USER_OWNED_BUCKET means Cloud Build will manage the logs bucket automatically in the build region.
+  # No need for logsBucket: 'gs://...' unless you want a specific custom bucket.
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
-
-- name: "gcr.io/cloud-builders/docker"
-  args: ['push', 'us-central1-docker.pkg.dev/${PROJECT_ID}/demo-project-gcp/my-image']
-
+  # If you're using a custom service account, specify it here:
+  # serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/cloudbuild-ar-builder@${PROJECT_ID}.iam.gserviceaccount.com'
